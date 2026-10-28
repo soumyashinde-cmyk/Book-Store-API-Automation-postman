@@ -1,0 +1,99 @@
+{
+  "info": {
+    "_postman_id": "bffa3dc9-b751-400a-b56e-d080f6322931",
+    "name": "Book Store API Automation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "59104281",
+    "_collection_link": "https://go.postman.co/collection/59104281-bffa3dc9-b751-400a-b56e-d080f6322931?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Books API Tests",
+      "item": [
+        {
+          "name": "Get_Single_Book",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nconst responseData = pm.response.json();\r\n\r\npm.test(\"Response contains a title\", function () {\r\n    pm.expect(responseData).to.have.property(\"title\");\r\n});\r\n\r\npm.test(\"Response contains an ID\", function () {\r\n    pm.expect(responseData.id).to.eql(1);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/posts/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "posts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all books",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/posts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "posts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create book",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\nconst responseData = pm.response.json();\r\n\r\npm.test(\"Created post has a title\", function () {\r\n    pm.expect(responseData.title).to.eql(\"API Testing Basics\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"API Testing Basics\",\r\n    \"body\": \"Learning Postman automation\",\r\n    \"userId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/posts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "posts"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
